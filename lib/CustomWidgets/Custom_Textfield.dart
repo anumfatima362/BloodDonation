@@ -12,8 +12,8 @@ class CustomTextfield extends StatelessWidget {
         borderRadius: BorderRadius.circular(20)
 
       ),
-      child: TextField(
-        decoration: InputDecoration(
+         child: TextField(
+         decoration: InputDecoration(
           border: InputBorder.none,
           //reduce the size of height in search field
             contentPadding: EdgeInsets.symmetric(vertical: 8, horizontal: 12),

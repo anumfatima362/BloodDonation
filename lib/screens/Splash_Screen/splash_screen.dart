@@ -1,6 +1,7 @@
 import 'dart:async';
 import 'package:blooddonation/CustomWidgets/custom_text.dart';
 import 'package:blooddonation/CustomWidgets/sizedbox.dart';
+import 'package:blooddonation/screens/Atuntication_Screen/Login_screen.dart';
 import 'package:blooddonation/screens/MenuScreen/menu_screen.dart';
 import 'package:flutter/material.dart';
 
@@ -18,7 +19,7 @@ class _SplashScreenState extends State<SplashScreen> {
   void initState(){
   super.initState();
   Timer(Duration(seconds: 3),() {
-    Navigator.pushReplacement(context, MaterialPageRoute(builder: (BuildContext context) => MenuScreen()));
+    Navigator.pushReplacement(context, MaterialPageRoute(builder: (BuildContext context) => LoginScreen()));
   });
   }
   Widget build(BuildContext context) {

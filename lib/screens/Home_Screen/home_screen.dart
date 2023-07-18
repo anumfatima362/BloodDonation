@@ -95,8 +95,7 @@ class _HomeScreenState extends State<HomeScreen> {
            ),
          ),
 
-
-       10.height(context),
+         10.height(context),
 
        Expanded(
          child: Container(
