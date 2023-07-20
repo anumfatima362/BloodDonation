@@ -3,7 +3,6 @@ import 'package:blooddonation/screens/Atuntication_Screen/components/cutomContai
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:provider/provider.dart';
-
 import '../../CustomWidgets/Custom_button.dart';
 import '../../CustomWidgets/custom_text.dart';
 import '../../Helper/route_helper.dart';
@@ -22,6 +21,7 @@ class SignupScreen extends StatefulWidget {
 
 class _SignupScreenState extends State<SignupScreen> {
   final GlobalKey<FormState> formkey = GlobalKey<FormState>();
+
 
   @override
   Widget build(BuildContext context) {
@@ -153,26 +153,26 @@ class _SignupScreenState extends State<SignupScreen> {
                   ),
                 ),
 
+
                 20.height(context),
 
                 GestureDetector(
-                    onTap: (){
+                    onTap: ()async{
+                     authProvider.setstartLoading();
+                     await Future.delayed(const Duration(seconds: 3));
                       if(formkey.currentState!.validate()){
-                        authProvider.signup_username_controller.text.isNotEmpty.toString();
-                        authProvider.signup_email_controller.text.isNotEmpty.toString();
-                        authProvider.signup_password_controller.text.isNotEmpty.toString();
-                        authProvider.signup_phone_no_controller.text.isNotEmpty.toString();
+                      await   authProvider.signUp(
+                           authProvider.signup_username_controller.text,
+                           authProvider.signup_email_controller.text,
+                           authProvider.signup_password_controller.text,
+                           authProvider.signup_phone_no_controller.text,
+                           context);
+                        }
+                          authProvider.setstopLoading();
+                       },
+                        child: CustomButton(buttontxt: 'Login',)),
 
-
-
-                      }
-                      Navigator.pushNamed(context, RouteHelper.verify_screen);
-                    },
-
-                    child: CustomButton(buttontxt: 'Login',)),
-
-
-                30.height(context),
+                68.height(context),
 
 
                 GestureDetector(
@@ -180,7 +180,7 @@ class _SignupScreenState extends State<SignupScreen> {
                     Navigator.pushNamed(context, RouteHelper.loginscreen);
                   },
                   child: CustomContainer(
-                      text:    "Already have a Account? Sign in",
+                      text:  "Already have a Account? Sign in",
                   )
                 )
               ],

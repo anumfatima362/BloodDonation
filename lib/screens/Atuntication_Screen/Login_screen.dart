@@ -111,7 +111,7 @@ class _LoginScreenState extends State<LoginScreen> {
 
                     child: CustomButton(buttontxt: 'Login',)),
 
-                120.height(context),
+                132.height(context),
 
 
                 GestureDetector(

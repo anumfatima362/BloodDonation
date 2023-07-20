@@ -1,5 +1,7 @@
+import 'package:blooddonation/Helper/route_helper.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
 
 import '../utils/Snackbar.dart';
 
@@ -9,7 +11,17 @@ import '../utils/Snackbar.dart';
 class AtunticationProvider extends ChangeNotifier{
 
 
+  //Loader
+  bool isloading  = false;
 
+    setstartLoading() {
+      isloading = true;
+      notifyListeners();
+    }
+    setstopLoading(){
+      isloading = false;
+      notifyListeners();
+    }
 
   //====================================================== Textfield Controller ====================================================================
   //Login Controller
@@ -99,18 +111,27 @@ class AtunticationProvider extends ChangeNotifier{
         UserCredential userCredential = await firebaseAuth.createUserWithEmailAndPassword(
             email: email,
             password: password);
-
-
+        // Check if the registration is successful, and the user is new or already existed.
+        // If the account is new, you can proceed to the verification screen.
+        // If the account already existed, you can handle it accordingly.
+        if(userCredential.additionalUserInfo!.isNewUser ==  true){
+         Navigator.pushNamed(context, RouteHelper.verify_screen);
         }
-
+        }
       }on FirebaseAuthException catch(e){
-        if(e.code == 'if email is already in use'){
-          return InvalidRegistration(context);
-        }
+        // Handle the case where the user account already existed.
+        return InvalidRegistration(context);
 
+        // if (e.code == 'user-not-found') {
+        //   print('No user found for that email.');
+        // } else if (e.code == 'wrong-password') {
+        //   print('Wrong password provided for that user.');
       }
 
    }
+
+
+
 
 
 
