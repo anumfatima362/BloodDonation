@@ -1,10 +1,16 @@
+
 import 'package:blooddonation/Helper/route_helper.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-
+import 'package:path/path.dart';
+import 'package:image_picker/image_picker.dart';
 import '../utils/Snackbar.dart';
-
+import 'dart:io';
+import 'package:firebase_storage/firebase_storage.dart' as firebase_storage;
 
 
 
@@ -23,7 +29,8 @@ class AtunticationProvider extends ChangeNotifier{
       notifyListeners();
     }
 
-  //====================================================== Textfield Controller ====================================================================
+
+  //====================================================== Textfield Controller ==========================================================================================
   //Login Controller
   final   TextEditingController  login_email_controller = TextEditingController();
   final   TextEditingController  login_password_controller = TextEditingController();
@@ -63,6 +70,7 @@ class AtunticationProvider extends ChangeNotifier{
   }
 
 
+
   //Password Validation
   PasswordValidation(value){
     if (value == null || value.isEmpty) {
@@ -80,7 +88,6 @@ class AtunticationProvider extends ChangeNotifier{
   PhoneValidation(value){
     String pattern = r'^(?:[+0][1-9])?[0-9]{11}$';
     RegExp regExp = RegExp(pattern);
-
     if (value.isEmpty) {
       return "Enter Your Phone Number";
     } else if (!regExp.hasMatch(value)) {
@@ -108,9 +115,21 @@ class AtunticationProvider extends ChangeNotifier{
   signUp(String username ,String email ,  String password, String phoneno , BuildContext context) async {
       try{
       if(username.isNotEmpty && email.isNotEmpty && phoneno.isNotEmpty && password.isNotEmpty){
+
+        // Step 1: Register the user using Firebase Authentication
         UserCredential userCredential = await firebaseAuth.createUserWithEmailAndPassword(
             email: email,
             password: password);
+
+
+        // Step 2: Get the Firebase User ID (UID) of the registered user
+        String userId = userCredential.user!.uid;
+
+
+        // Step 3: Upload the image to Firebase Storage and get the download URL
+
+
+
         // Check if the registration is successful, and the user is new or already existed.
         // If the account is new, you can proceed to the verification screen.
         // If the account already existed, you can handle it accordingly.
@@ -129,6 +148,13 @@ class AtunticationProvider extends ChangeNotifier{
       }
 
    }
+
+
+
+
+
+  
+
 
 
 
